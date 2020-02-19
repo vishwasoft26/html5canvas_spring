@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="css/jira-canvas.css"/>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+		<script type="text/javascript" src="js/jira-canvsas.js"></script>
+		<title>Jira-Report!</title>
+	</head>
+<body>
+<div class="nav_bar"><button onclick="reportWithScreenshot()" class="button" >Report bug</button></br>
+<textarea class="bug-desc" placeholder="Describe bug here..." rows="4" cols="50"></textarea>
+</div>
+
+
+<div class="screen-container invisible_section">
+
+  <div class="response"></div> 
+  
+  <div class="screen_section">
+    <img width="70%" class="screen">
+    <div class="screen_shot_region"></div> 
+  </div>
+  <div>
+    
+  </div>
+  <div class="send">Send now</div>
+</div>
+
+</body>
+
+</html>
