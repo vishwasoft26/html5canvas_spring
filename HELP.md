@@ -4,7 +4,10 @@ The following was discovered as part of building this project:
 
 * The original package name 'com.jira.jira-canvas' is invalid and this project uses 'com.jira.jiracanvas' instead.
 * This is a snapshot development version 
-* you can run this project as 
+* you can run this project either from IDE or 
+** to build self contained:   mvn clean install to build jira-canvas-0.0.1-SNAPSHOT.jar 
+** Launch application: java -jar jira-canvas-0.0.1-SNAPSHOT.jar
+ 
 
 
 # Getting Started
