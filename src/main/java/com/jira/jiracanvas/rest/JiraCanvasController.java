@@ -1,10 +1,6 @@
 package com.jira.jiracanvas.rest;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,11 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.jira.jiracanvas.service.JiraCanvasService;
+
 @RestController
 public class JiraCanvasController {
 
-	private static final String UPLOAD_FOLDER = "E:\\work\\workspace\\jira-canvas";
-
+	@Autowired JiraCanvasService service;
+	
 	@PostMapping(value="/upload/screenshot")
 	public ResponseEntity<String> saveImage(@RequestParam MultipartFile image) {
 		
@@ -27,18 +25,17 @@ public class JiraCanvasController {
 			  fileName = image.getOriginalFilename();
 		  }
 		  
-		  Path path = Paths.get(".").toAbsolutePath().resolve(fileName);
-
 		  try { 
-			  byte[] content = image.getBytes();
-			  try(FileOutputStream fos = new FileOutputStream(path.toAbsolutePath().toFile())) {
-				  fos.write(content);
+			  boolean status = service.saveImage(image.getBytes(), fileName);
+			  if(status) {
+				  return ResponseEntity.ok().body("Image successfully saved " +fileName);
+			  } else {
+				  return ResponseEntity.ok().body("There is some issue with saving file " +fileName);
 			  }
-		  } catch (IOException e) {
-			  e.printStackTrace(); 
-			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image successfully saved in path " +path.getRoot());
+		  } catch (Exception e) {
+			  return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image successfully saved in path " +e.getMessage());
 		  }
-		  return ResponseEntity.ok().body("Image successfully saved in path " +path.getRoot());
+		  
 
 	}
 }

@@ -50,7 +50,7 @@ class JiraCanvasApplicationTests {
 				.file("image", imageFile.getBytes()).characterEncoding("UTF-8")).andExpect(status().isOk());
 
 		assertThat(response.andReturn().getResponse().getContentAsString())
-				.contains("Image successfully saved in path ");
+				.contains("Image successfully saved screen.png");
 
 	}
 
